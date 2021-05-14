@@ -1,0 +1,39 @@
+mixin admin_user_form(action, method, user, err)
+  form.box(action=action, method="post")
+    _csrf
+    _method=method
+
+    - if(err)
+      ul.errors
+        each error in err.errors
+          li= error.message
+
+    div
+      label(for='provider') provider
+      input#provider(name="provider", value!=user.provider)
+    div
+      label(for='uid') uid
+      input#uid(name="uid", value!=user.uid)
+    div
+      label(for='username') username
+      input#username(name="username", value!=user.username)
+    div
+      label(for='email') email
+      input#email(name="email", value!=user.email)
+    div
+      label(for='displayName') displayName
+      input#displayName(name="displayName", value!=user.displayName)
+    div
+      label(for='role') role
+      select#role(name="role")
+        each value in user.constructor.roles
+          option(value!=value, selected=(user.role === value))=__(`models.User.roles.${value}`)
+    div
+      label(for='accessToken') accessToken
+      input#accessToken(name="accessToken", value!=user.accessToken)
+    div
+      label(for='refreshToken') refreshToken
+      input#refreshToken(name="refreshToken", value!=user.refreshToken)
+      
+    div.actions
+      input(type="submit")

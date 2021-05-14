@@ -1,0 +1,8 @@
+#!/bin/bash
+set -eu
+
+export NODE_ENV='test'
+
+npx sequelize-cli db:drop --debug --env test
+npx sequelize-cli db:create --debug --env test
+npx sequelize-cli db:migrate --debug --env test
