@@ -1,6 +1,7 @@
 const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
-const Team = require('../models/team');
+const models = require('../models');
+const Team = models.Team;
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -11,13 +12,23 @@ class TeamsController extends Controller {
     //const user = req.user;
     //res.render('users/edit', { user });
     const teamName = req.body.teamName;
-    console.log(req.body.teamName);
-    console.log(Team.);
-    await Team.create({
-      name: teamName,
-      ownerId: 1000
-    });
-    res.render('teams/create');
+    const userId = req.user.id;
+    console.log(req.user.id);
+    try{
+      console.log(req.body.teamName);
+      console.log(Team);
+      await Team.create({
+        name: teamName,
+        ownerId: userId
+      });
+      res.render('teams/create');
+    } catch (err) {
+      if(err instanceof ValidationError) {
+        res.render('teams/create', { teamName, err: err });
+      } else{
+        throw err;
+    }
+  }
   }
   //async update(req, res) {
   //  const user = req.user;
