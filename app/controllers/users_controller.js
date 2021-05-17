@@ -23,6 +23,8 @@ class UsersController extends Controller {
       }
     }
   }
+
+
 }
 
 module.exports = UsersController;
