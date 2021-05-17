@@ -1,0 +1,22 @@
+extends ../layout
+
+block content 
+  h2 チーム作成
+
+  form(action=`/teams`, method="post")
+    //_method post
+    _csrf
+
+    input(type="text", name="teamName")
+    button(type="submit") 作成
+
+    //- if(err)
+      ul.errors
+        each error in err.errors
+          li= error.message
+
+    //div
+      input(name="teamName")
+
+    //div
+      input(type="submit")

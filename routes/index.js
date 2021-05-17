@@ -10,8 +10,16 @@ route.get('/', function (req, res, _next) {
 });
 
 // single style
+//Laravelぽいルーティング
+//コントローラの@以降の関数にいく
+//forceLogin→ログインしてないと使えない（midlewaresに書いてある）
 route.get('/user/edit', forceLogin, 'users_controller@edit');
 route.put('/user', forceLogin, 'users_controller@update');
+
+//チーム名作成のルーティング
+route.get('/teams/create', forceLogin, 'teams_controller@create');
+route.post('/teams', forceLogin, 'teams_controller@store');
+//route.post('/teams', forceLogin, 'teams_controller@edit');
 
 // resource style
 route.resource('examples', 'examples_controller');

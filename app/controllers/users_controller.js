@@ -7,6 +7,7 @@ class UsersController extends Controller {
     res.render('users/edit', { user });
   }
 
+
   async update(req, res) {
     const user = req.user;
     try {
