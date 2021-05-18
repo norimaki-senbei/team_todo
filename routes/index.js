@@ -9,28 +9,10 @@ route.get('/', function (req, res, _next) {
   res.render('index', { title: 'Express', user: req.user });
 });
 
-// single style
-//Laravelぽいルーティング
-//コントローラの@以降の関数にいく
-//forceLogin→ログインしてないと使えない（midlewaresに書いてある）
-
-//ルーティング設定
-route.get('/', forceLogin, 'index_controller@show');
-
-//userに関するルーティング
-route.get('/user/edit', forceLogin, 'users_controller@edit');
-route.put('/user', forceLogin, 'users_controller@update');
-
-//チーム名作成のルーティング
-route.get('/teams/create', forceLogin, 'teams_controller@create');
-route.post('/teams', forceLogin, 'teams_controller@store');
-route.get('/teams/:team', forceLogin, 'teams_controller@show');
-route.get('/teams/:team/edit', forceLogin, 'teams_controller@edit');
-route.put('/teams/:team', forceLogin, 'teams_controller@update');
-//route.post('/teams', forceLogin, 'teams_controller@edit');
 
 // resource style
-route.resource('examples', 'examples_controller');
+route.resource('teams', { controller: 'teams_controller', only: ['store', 'show', 'create', 'update', 'edit'] });
+route.resource('users', { controller: 'users_controller', only: ['update', 'edit'] });
 
 // /adminのURL階層の作成。ログインチェック、管理者チェックが有効。
 const adminRoute = route.sub('/admin', forceLogin, forceAdmin);
