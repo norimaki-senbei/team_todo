@@ -3,23 +3,23 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.changeColumn('Teams', 'name', {
-                type: Sequelize.STRING,
-                allowNull: false
-            });
+      type: Sequelize.STRING,
+      allowNull: false
+    });
     await queryInterface.changeColumn('Teams', 'ownerId', {
-                type: Sequelize.INTEGER,
-                references: { model: 'Users', key: 'id' },
-                allowNull: false
-            });
+      type: Sequelize.INTEGER,
+      references: { model: 'Users', key: 'id' },
+      allowNull: false
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.changeColumn('Teams', 'name', {
-                type: Sequelize.STRING
-            });
+      type: Sequelize.STRING
+    });
     await queryInterface.changeColumn('Teams', 'ownerId', {
-                type: Sequelize.INTEGER,
-                references: { model: 'Users', key: 'id' }
-            });
+      type: Sequelize.INTEGER,
+      references: { model: 'Users', key: 'id' }
+    });
   }
 };
