@@ -37,10 +37,10 @@ class TeamsController extends Controller {
     const teamId = req.params.team;
     //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更できちゃう。
     //要確認
-    //const task = await Task.findByPk(taskId); 
-    const task = await Task.findOne({
-      where: { id: taskId, teamId: teamId }
-    });
+    const task = await Task.findByPk(taskId); 
+    //const task = await Task.findOne({
+    //  where: { id: taskId, teamId: teamId }
+    //});
     //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
     res.render('tasks/edit', { task: task, teamId: teamId });
   }
@@ -63,8 +63,8 @@ class TeamsController extends Controller {
           body: req.body.taskBody,
           status: 0
         },
-        {where: { id: teamId } }
-        );
+        { where: { id: teamId } }
+      );
       
       await req.flash('info', '予定' + task.title + 'を変更しました');
       res.redirect(`/teams/${teamId}`);
@@ -80,7 +80,7 @@ class TeamsController extends Controller {
   async show(req, res) {
     const teamId = req.params.team;
     await Team.findByPk(teamId).then((team) => {
-      res.render('teams/show', {team});
+      res.render('teams/show', { team });
     });
   }
 

@@ -2,7 +2,6 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
-const Task = models.Task;
 const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
@@ -20,7 +19,7 @@ class TeamsController extends Controller {
         ownerId: userId
       });
       
-      await req.flash('info', '新規チーム'+team.name+'を作成しました');
+      await req.flash('info', '新規チーム' + team.name + 'を作成しました');
       const teamId = team.id;
       res.redirect(`/teams/${teamId}`);
 
@@ -50,7 +49,7 @@ class TeamsController extends Controller {
   async edit(req, res) {
     const teamId = req.params.team;
     await Team.findByPk(teamId).then((team) => {
-      res.render('teams/edit', {team});
+      res.render('teams/edit', { team });
     });
   }
 
@@ -60,10 +59,10 @@ class TeamsController extends Controller {
       const teamName = req.body.teamName;
       const team = await Team.findByPk(teamId);
       await team.update(
-        {name: teamName},
-        {where: {id: teamId}}
+        { name: teamName },
+        { where: { id: teamId } }
       );
-      await req.flash('info', 'チーム名を'+team.name+'に変更しました');
+      await req.flash('info', 'チーム名を' + team.name + 'に変更しました');
       res.redirect(`/teams/${teamId}`);
     } catch (err) {
       if(err instanceof ValidationError) {
