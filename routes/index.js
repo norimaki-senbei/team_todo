@@ -37,10 +37,11 @@ const adminRoute = route.sub('/admin', forceLogin, forceAdmin);
 adminRoute.resource('users', 'admin/users_controller');
 
 //taskのルーティング設定
-const teamRoute = route.sub('/teams', forceLogin);
-teamRoute.get('/:team/tasks/create', 'tasks_controller@create');
-teamRoute.post('/:team/tasks', 'tasks_controller@store');
-teamRoute.get('/:team/tasks/:task/edit', 'tasks_controller@edit');
-teamRoute.put('/:team/tasks/:task', 'tasks_controller@update');
+const teamRoute = route.sub('/teams/:team', forceLogin);
+teamRoute.resource('tasks', { controller: 'tasks_controller', only: ['store', 'create', 'update', 'edit'] });
+//teamRoute.get('/:team/tasks/create', 'tasks_controller@create');
+//teamRoute.post('/:team/tasks', 'tasks_controller@store');
+//teamRoute.get('/:team/tasks/:task/edit', 'tasks_controller@edit');
+//teamRoute.put('/:team/tasks/:task', 'tasks_controller@update');
 
 module.exports = route.router;
