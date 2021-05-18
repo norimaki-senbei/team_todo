@@ -20,7 +20,7 @@ class TeamsController extends Controller {
 
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('teams/create', { teamName, err: err });
+        res.render('teams/create', { err: err });
       } else{
         throw err;
       }
@@ -52,7 +52,7 @@ class TeamsController extends Controller {
       res.redirect(`/teams/${teamId}`);
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('teams/edit', { teamName, err: err });
+        res.render('teams/edit', { team, err: err });
       } else{
         throw err;
       }

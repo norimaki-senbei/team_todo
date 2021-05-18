@@ -9,7 +9,6 @@ route.get('/', function (req, res, _next) {
   res.render('index', { title: 'Express', user: req.user });
 });
 
-
 // resource style
 route.resource('teams', { controller: 'teams_controller', only: ['store', 'show', 'create', 'update', 'edit'] });
 route.resource('users', { controller: 'users_controller', only: ['update', 'edit'] });
