@@ -18,7 +18,7 @@ class TeamsController extends Controller {
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
       res.redirect(`/teams/${team.id}`);
 
-    } catch (err) {
+    } catch (err) { 
       if(err instanceof ValidationError) {
         res.render('teams/create', { err: err });
       } else{
