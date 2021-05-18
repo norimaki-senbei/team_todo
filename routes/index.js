@@ -15,7 +15,6 @@ route.get('/', function (req, res, _next) {
 //forceLogin→ログインしてないと使えない（midlewaresに書いてある）
 
 //ルーティング設定
-route.get('/', forceLogin, 'index_controller@show');
 
 //userに関するルーティング
 route.get('/user/edit', forceLogin, 'users_controller@edit');
