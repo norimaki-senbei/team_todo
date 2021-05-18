@@ -10,15 +10,19 @@ module.exports = {
       },
       teamId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {model: 'Teams', key: 'id'}
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       body: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       status: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
