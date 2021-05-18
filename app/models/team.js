@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Owner'
       });
     }
-  };
+  }
   Team.init({
     name: DataTypes.STRING,
     ownerId: DataTypes.INTEGER
@@ -25,4 +25,4 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Team',
   });
   return Team;
-}
+};
