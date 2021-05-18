@@ -1,27 +1,20 @@
 extends ../layout
 
 block content 
-  h2 チーム名の編集
+  h2 タスクの編集
     //a(href="/examples") Example
     //| / edit
-
-  form.box(action=`/teams/${team.id}`, method="post")
+  form(action=`/teams/${ teamId }/tasks/${ task.id }`, method="post")
     _csrf
     _method put
 
 
     div
-      label(for="teamName") チーム名を入力してね
-      input(name="teamName", value=team.name)
+      label(for="taskTitle") タイトル
+      input(name="taskTitle", value=task.title)
+    div
+      label(for="taskBody") 内容
+      textarea(name="taskBody", rows="3", value=task.body)
 
     div
-      input(type="submit")
-
-    //div
-    //  label(for="title") title
-    //  input#title(name="title", value=example.title)
-    //div  
-    //  label(for="body") body
-    //  //textarea#body(name="body")=example.body
-    //div.actions
-    //  input(type="submit")
+      button(type="submit") 送信
