@@ -46,7 +46,7 @@ class TeamsController extends Controller {
       const team = await Team.findByPk(teamId);
       await team.update(
         { name: teamName },
-        { where: {id: teamId} }
+        { where: { id: teamId } }
       );
       await req.flash('info', 'チーム名を' + team.name + 'に変更しました');
       res.redirect(`/teams/${teamId}`);
