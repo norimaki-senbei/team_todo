@@ -2,6 +2,8 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
+const Task = models.Task;
+const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -33,9 +35,16 @@ class TeamsController extends Controller {
 
   async show(req, res) {
     const teamId = req.params.team;
-    await Team.findByPk(teamId).then((team) => {
-      res.render('teams/show', {team});
+    const team = await Team.findByPk(teamId);
+    //teamIdに結びついたタスクを全て抜き出す
+    const tasks = await team.getTeamTask({
+      order: [['id', 'ASC']]
     });
+    //日付のフォーマット変更
+    await tasks.forEach((task) => {
+      task.formattedCreatedAt = moment(task.createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+    });
+    res.render('teams/show', { team: team, tasks: tasks } );
   }
 
   async edit(req, res) {
@@ -64,21 +73,7 @@ class TeamsController extends Controller {
       }
     }
   }
-  //async update(req, res) {
-  //  const user = req.user;
-  //  try {
-  //    user.displayName = req.body.displayName;  
-  //    await user.save();
-  //    await req.flash('info', '更新しました');
-  //    res.redirect(`/user/edit`);
-  //  } catch (err) {
-  //    if(err instanceof ValidationError) {
-  //      res.render('users/edit', { user, err: err });
-  //    } else{
-  //      throw err;
-  //    }
-  //  }
-  //}
+
 }
 
 module.exports = TeamsController;

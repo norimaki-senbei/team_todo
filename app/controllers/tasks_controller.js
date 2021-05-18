@@ -2,6 +2,7 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Task = models.Task;
+const Team = models.Team;
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -35,16 +36,8 @@ class TeamsController extends Controller {
     const taskId = req.params.task;
     const teamId = req.params.team;
     const task = await Task.findByPk(taskId);
-    res.render('tasks/edit', { task, teamId });
+    res.render('tasks/edit', { task: task, teamId: teamId });
   }
-
-  async show(req, res) {
-    const teamId = req.params.team;
-    await Team.findByPk(teamId).then((team) => {
-      res.render('teams/show', {team});
-    });
-  }
-
 
 
   async update(req, res) {
@@ -71,6 +64,15 @@ class TeamsController extends Controller {
       }
     }
   }
+
+  async show(req, res) {
+    const teamId = req.params.team;
+    await Team.findByPk(teamId).then((team) => {
+      res.render('teams/show', {team});
+    });
+  }
+
+
 
 }
 
