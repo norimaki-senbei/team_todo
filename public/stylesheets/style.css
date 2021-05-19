@@ -50,13 +50,3 @@ header > nav {
 .actions {
   text-align: right;
 }
-
-table,
-th {
-  font-weight: bold;
-}
-table,
-th,
-td {
-  border: 2px #808080 solid;
-}

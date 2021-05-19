@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'ownerId',
         as: 'OwnerTeams'
       });
+      this.UserMember = this.hasMany(models.Member, {
+        foreignKey: 'userId',
+        as: 'UserMember'
+      });
     }
 
     static async signIn(params) {

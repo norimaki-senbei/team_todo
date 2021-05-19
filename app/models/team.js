@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'teamId',
         as: 'TeamTask'
       });
+      this.TeamMember = this.hasMany(models.Member, {
+        foreignKey: 'teamId',
+        as: 'TeamMember'
+      });
     }
   };
   Team.init({
