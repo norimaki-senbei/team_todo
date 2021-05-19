@@ -4,7 +4,7 @@ const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
 
-class TeamsController extends Controller {
+class TasksController extends Controller {
   create(req, res) {
     const teamId = req.params.team;
     res.render('tasks/create', { teamId } );
@@ -80,15 +80,6 @@ class TeamsController extends Controller {
     }
   }
 
-  async show(req, res) {
-    const teamId = req.params.team;
-    await Team.findByPk(teamId).then((team) => {
-      res.render('teams/show', { team });
-    });
-  }
-
-
-
 }
 
-module.exports = TeamsController;
+module.exports = TasksController;
