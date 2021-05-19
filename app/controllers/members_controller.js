@@ -3,17 +3,23 @@ const Controller = require('./controller');
 const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
+const User = models.User;
 
-class TeamsController extends Controller {
+class MembersController extends Controller {
   
   async index(req, res) {
     const teamId = req.params.team;
     const team = await Team.findByPk(teamId);
-    //teamIdに結びついたタスクを全て抜き出す
+    //teamIdに結びついたメンバーを全て抜き出す
     const members = await team.getTeamMember({
-      order: [['id', 'ASC']]
+      order: [['userId', 'ASC']]
     });
-    res.render('members/index', { team: team, members: members } );
+    //memberの名前も取得する必要あるな（userIdで取れる）
+    await members.forEach( async (member) => {
+      const user = await User.findByPk(member.id);
+      await member.userName = user.username;
+    });
+    res.render('members/index', { members: members } );
   }
 
 
@@ -105,4 +111,4 @@ class TeamsController extends Controller {
 
 }
 
-module.exports = TeamsController;
+module.exports = MembersController;

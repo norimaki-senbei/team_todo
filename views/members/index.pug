@@ -1,28 +1,14 @@
 extends ../layout
 
 block content 
-  h1 #{team.name}
-  a(href=`/teams/${team.id}/edit`) 編集 
-  p
-    a(href=`/teams/${team.id}/tasks/create`) 新規タスクの作成 
-    //| / show
-  h2 タスク一覧
+  h2 新メンバー追加
+  //TODOプルダウンでメンバーを追加できるようにする
+  h2 メンバー一覧
   table(border="2")
     tr
-      th タスクID
-      th タイトル
-      th 作成日時
-      th 操作
-    each task in tasks
+      th 役割
+      th 名前
+    each member in members
       tr
-        td #{task.id}
-        td #{task.title}
-        td #{task.formattedCreatedAt}
-        td 
-          a(href=`/teams/${team.id}/tasks/${task.id}/edit`) 編集
-
-  //dl
-  //  dt title
-  //  dd= example.title
-  //  dt body
-  //  dd= example.body
+        td #{member.role}
+        td #{member.userName}

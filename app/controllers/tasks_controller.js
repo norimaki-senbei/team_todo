@@ -80,13 +80,6 @@ class TeamsController extends Controller {
     }
   }
 
-  async show(req, res) {
-    const teamId = req.params.team;
-    await Team.findByPk(teamId).then((team) => {
-      res.render('teams/show', { team });
-    });
-  }
-
 
 
 }
