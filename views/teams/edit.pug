@@ -1,0 +1,16 @@
+extends ../layout
+
+block content 
+  h2 チーム名の編集
+
+  form.box(action=`/teams/${team.id}`, method="post")
+    _csrf
+    _method put
+
+
+    div
+      label(for="teamName") チーム名を入力してね
+      input(name="teamName", value=team.name)
+
+    div
+      input(type="submit")
