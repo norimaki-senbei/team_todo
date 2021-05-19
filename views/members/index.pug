@@ -1,0 +1,28 @@
+extends ../layout
+
+block content 
+  h1 #{team.name}
+  a(href=`/teams/${team.id}/edit`) 編集 
+  p
+    a(href=`/teams/${team.id}/tasks/create`) 新規タスクの作成 
+    //| / show
+  h2 タスク一覧
+  table(border="2")
+    tr
+      th タスクID
+      th タイトル
+      th 作成日時
+      th 操作
+    each task in tasks
+      tr
+        td #{task.id}
+        td #{task.title}
+        td #{task.formattedCreatedAt}
+        td 
+          a(href=`/teams/${team.id}/tasks/${task.id}/edit`) 編集
+
+  //dl
+  //  dt title
+  //  dd= example.title
+  //  dt body
+  //  dd= example.body

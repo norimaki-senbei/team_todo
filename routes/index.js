@@ -38,6 +38,10 @@ adminRoute.resource('users', 'admin/users_controller');
 //taskのルーティング設定
 const teamRoute = route.sub('/teams/:team', forceLogin);
 teamRoute.resource('tasks', { controller: 'tasks_controller', only: ['store', 'create', 'update', 'edit'] });
+
+//Memberのルーティング設定
+teamRoute.resource('members', { controller: 'members_controller', only: ['index'] });
+
 //teamRoute.get('/:team/tasks/create', 'tasks_controller@create');
 //teamRoute.post('/:team/tasks', 'tasks_controller@store');
 //teamRoute.get('/:team/tasks/:task/edit', 'tasks_controller@edit');
