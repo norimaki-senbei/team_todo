@@ -2,9 +2,12 @@ extends ../layout
 
 block content 
   h1 #{team.name}
-  a(href=`/teams/${team.id}/edit`) 編集 
+  a(href=`/teams/${team.id}/edit`) チーム名の編集 
   p
     a(href=`/teams/${team.id}/tasks/create`) 新規タスクの作成 
+  p
+    a(href=`/teams/${team.id}/members`) メンバーの管理 
+
     //| / show
   h2 タスク一覧
   table(border="2")

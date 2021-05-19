@@ -4,6 +4,7 @@ const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
 const User = models.User;
+const Member = models.Member;
 
 class MembersController extends Controller {
   
@@ -14,34 +15,30 @@ class MembersController extends Controller {
     const members = await team.getTeamMember({
       order: [['userId', 'ASC']]
     });
-    //memberの名前も取得する必要あるな（userIdで取れる）
+
+    //userIdに関係するusernameの取得
     await members.forEach( async (member) => {
-      const user = await User.findByPk(member.id);
+      const user = await member.getUser();
       member.userName = user.username;
     });
-    res.render('members/index', { members: members } );
-  }
-
-
-
-
-  create(req, res) {
-    const teamId = req.params.team;
-    res.render('tasks/create', { teamId } );
+    const users = await User.findAll({
+      order: [['id', 'ASC']]
+    });
+    //await console.log(members);
+    res.render('members/index', { team: team, members: members, users: users } );
   }
 
   async store(req, res) {
     try{
       //チームをDBに保存
-      const task = await Task.create({
-        teamId: req.params.team,
-        title: req.body.taskTitle,
-        body: req.body.taskBody,
-        status: 0
+      const teamId = req.params.team;
+      await Member.create({
+        teamId: teamId,
+        userId: req.body.addUserId
       });
-      
-      await req.flash('info', '新規の予定' + task.title + 'を作成しました');
-      res.redirect(`/teams/${task.teamId}`);
+
+      await req.flash('info', '新規メンバーを追加しました');
+      res.redirect(`/teams/${teamId}/members`);
 
     } catch (err) {
       if(err instanceof ValidationError) {
@@ -51,63 +48,6 @@ class MembersController extends Controller {
       }
     }
   }
-
-  async edit(req, res) {
-    const taskId = req.params.task;
-    const teamId = req.params.team;
-    //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更できちゃう。
-    //要確認
-    const team = await Team.findByPk(teamId); 
-    const tasks = await team.getTeamTask({
-      where: { id: taskId }
-    }); 
-    const task = tasks[0];
-    //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
-    res.render('tasks/edit', { task: task, teamId: teamId });
-  }
-
-
-  async update(req, res) {
-    try{
-      const teamId = req.params.team;
-      const taskId = req.params.task;
-      //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更される。
-      //要確認 
-      const team = await Team.findByPk(teamId); 
-      const tasks = await team.getTeamTask({
-        where: { id: taskId }
-      }); 
-      const task = tasks[0];
-      //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
-
-      await task.update(
-        {
-          title: req.body.taskTitle,
-          body: req.body.taskBody,
-          status: 0
-        },
-        { where: { id: teamId } }
-      );
-      
-      await req.flash('info', '予定' + task.title + 'を変更しました');
-      res.redirect(`/teams/${teamId}`);
-    } catch (err) {
-      if(err instanceof ValidationError) {
-        res.render('tasks/edit', { err: err });
-      } else{
-        throw err;
-      }
-    }
-  }
-
-  async show(req, res) {
-    const teamId = req.params.team;
-    await Team.findByPk(teamId).then((team) => {
-      res.render('teams/show', { team });
-    });
-  }
-
-
 
 }
 

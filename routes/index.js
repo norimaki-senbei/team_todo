@@ -40,7 +40,7 @@ const teamRoute = route.sub('/teams/:team', forceLogin);
 teamRoute.resource('tasks', { controller: 'tasks_controller', only: ['store', 'create', 'update', 'edit'] });
 
 //Memberのルーティング設定
-teamRoute.resource('members', { controller: 'members_controller', only: ['index'] });
+teamRoute.resource('members', { controller: 'members_controller', only: ['index', 'store'] });
 
 //teamRoute.get('/:team/tasks/create', 'tasks_controller@create');
 //teamRoute.post('/:team/tasks', 'tasks_controller@store');
