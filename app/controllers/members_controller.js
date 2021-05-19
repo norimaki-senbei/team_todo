@@ -17,7 +17,7 @@ class MembersController extends Controller {
     //memberの名前も取得する必要あるな（userIdで取れる）
     await members.forEach( async (member) => {
       const user = await User.findByPk(member.id);
-      await member.userName = user.username;
+      member.userName = user.username;
     });
     res.render('members/index', { members: members } );
   }
