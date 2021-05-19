@@ -17,4 +17,12 @@ route.resource('users', { controller: 'users_controller', only: ['update', 'edit
 const adminRoute = route.sub('/admin', forceLogin, forceAdmin);
 adminRoute.resource('users', 'admin/users_controller');
 
+//taskのルーティング設定
+const teamRoute = route.sub('/teams/:team', forceLogin);
+teamRoute.resource('tasks', { controller: 'tasks_controller', only: ['store', 'create', 'update', 'edit'] });
+
+//Memberのルーティング設定
+teamRoute.resource('members', { controller: 'members_controller', only: ['index', 'store'] });
+
+
 module.exports = route.router;

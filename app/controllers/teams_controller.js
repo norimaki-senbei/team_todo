@@ -2,6 +2,7 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
+const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -30,7 +31,15 @@ class TeamsController extends Controller {
   async show(req, res) {
     const teamId = req.params.team;
     const team = await Team.findByPk(teamId);
-    res.render('teams/show', { team });
+    //teamIdに結びついたタスクを全て抜き出す
+    const tasks = await team.getTeamTask({
+      order: [['id', 'ASC']]
+    });
+    //日付のフォーマット変更
+    await tasks.forEach((task) => {
+      task.formattedCreatedAt = moment(task.createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+    });
+    res.render('teams/show', { team: team, tasks: tasks } );
   }
 
   async edit(req, res) {
