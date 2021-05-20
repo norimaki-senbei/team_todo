@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'TeamTask'
       });
     }
-  };
+  }
   Team.init({
     name: DataTypes.STRING,
     ownerId: DataTypes.INTEGER

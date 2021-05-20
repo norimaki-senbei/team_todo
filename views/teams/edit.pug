@@ -2,8 +2,6 @@ extends ../layout
 
 block content 
   h2 チーム名の編集
-    //a(href="/examples") Example
-    //| / edit
 
   form.box(action=`/teams/${team.id}`, method="post")
     _csrf
@@ -16,12 +14,3 @@ block content
 
     div
       input(type="submit")
-
-    //div
-    //  label(for="title") title
-    //  input#title(name="title", value=example.title)
-    //div  
-    //  label(for="body") body
-    //  //textarea#body(name="body")=example.body
-    //div.actions
-    //  input(type="submit")

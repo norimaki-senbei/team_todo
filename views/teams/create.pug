@@ -2,12 +2,9 @@ extends ../layout
 
 block content 
   h2 チーム作成
-  //form(action=`/teams`, method="post")
   form.box(action=`/teams`, method="post")
     _method post
     _csrf
-    //input(type="text", name="teamName")
-    //button(type="submit") 作成
 
     - if(err)
       ul.errors

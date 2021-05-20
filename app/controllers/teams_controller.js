@@ -6,26 +6,22 @@ const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
   create(req, res) {
-    //const user = req.user;
     res.render('teams/create');
   }
   async store(req, res) {
-    const teamName = req.body.teamName;
-    const userId = req.user.id;
     try{
       //チームをDBに保存
       const team = await Team.create({
-        name: teamName,
-        ownerId: userId
+        name: req.body.teamName,
+        ownerId: req.user.id
       });
       
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
-      const teamId = team.id;
-      res.redirect(`/teams/${teamId}`);
+      res.redirect(`/teams/${team.id}`);
 
-    } catch (err) {
+    } catch (err) { 
       if(err instanceof ValidationError) {
-        res.render('teams/create', { teamName, err: err });
+        res.render('teams/create', { err: err });
       } else{
         throw err;
       }
@@ -48,9 +44,8 @@ class TeamsController extends Controller {
 
   async edit(req, res) {
     const teamId = req.params.team;
-    await Team.findByPk(teamId).then((team) => {
-      res.render('teams/edit', { team });
-    });
+    const team = await Team.findByPk(teamId);
+    res.render('teams/edit', { team });
   }
 
   async update(req, res) {
@@ -66,13 +61,12 @@ class TeamsController extends Controller {
       res.redirect(`/teams/${teamId}`);
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('teams/edit', { teamName, err: err });
+        res.render('teams/edit', { err: err });
       } else{
         throw err;
       }
     }
   }
-
 }
 
 module.exports = TeamsController;
