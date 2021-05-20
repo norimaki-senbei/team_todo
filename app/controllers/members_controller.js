@@ -13,7 +13,7 @@ class MembersController extends Controller {
     //teamIdに結びついたメンバーを全て抜き出す
     const members = await team.getTeamMember({
       include: { model: User, as: 'User' },
-      order: [['userId', 'ASC']]
+      order: [ [ 'id', 'ASC' ] ]
     });
 
     const users = await User.findAll({

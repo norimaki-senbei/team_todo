@@ -19,6 +19,7 @@ class TasksController extends Controller {
   async store(req, res) {
     try{
       //チームをDBに保存
+      console.log(req.body.selectedAssigneeId);
       const task = await Task.create({
         teamId: req.params.team,
         title: req.body.taskTitle,
@@ -80,8 +81,7 @@ class TasksController extends Controller {
           assigneeId: req.body.selectedAssigneeId,
           creatorId: req.user.id,
           status: 0
-        },
-        { where: { id: teamId } }
+        }
       );
       
       await req.flash('info', '予定' + task.title + 'を変更しました');
