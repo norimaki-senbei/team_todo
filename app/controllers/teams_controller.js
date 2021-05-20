@@ -35,10 +35,6 @@ class TeamsController extends Controller {
     const tasks = await team.getTeamTask({
       order: [['id', 'ASC']]
     });
-    //日付のフォーマット変更
-    await tasks.forEach((task) => {
-      task.formattedCreatedAt = moment(task.createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
-    });
     res.render('teams/show', { team: team, tasks: tasks } );
   }
 
