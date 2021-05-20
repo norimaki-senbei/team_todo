@@ -38,7 +38,9 @@ class TasksController extends Controller {
     //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更できちゃう。
     //要確認
     const team = await Team.findByPk(teamId); 
-    const tasks = await team.getTeamTask(); 
+    const tasks = await team.getTeamTask({
+      where: { id: taskId }
+    }); 
     const task = tasks[0];
     //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
     res.render('tasks/edit', { task: task, teamId: teamId });
@@ -63,8 +65,7 @@ class TasksController extends Controller {
           title: req.body.taskTitle,
           body: req.body.taskBody,
           status: 0
-        },
-        { where: { id: teamId } }
+        }
       );
       
       await req.flash('info', '予定' + task.title + 'を変更しました');
