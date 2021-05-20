@@ -14,6 +14,12 @@ block content
       label(for="taskBody") 内容
       - var text = task.body
       textarea(name="taskBody", rows="3")=text
+    div
+      label(for="selectedAssigneeId") 担当者
+      select(name="selectedAssigneeId")
+        option(value=0) なし
+        each member in members
+          option(value=member.id) #{member.User.displayName}
 
     div
       button(type="submit") 送信

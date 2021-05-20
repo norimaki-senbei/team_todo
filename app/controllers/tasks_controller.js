@@ -47,11 +47,16 @@ class TasksController extends Controller {
     //要確認
     const team = await Team.findByPk(teamId); 
     const tasks = await team.getTeamTask({
+      //include: { model: User, as: "Assignee" },
       where: { id: taskId }
     }); 
     const task = tasks[0];
+    const members = await team.getTeamMember({
+      include: { model: User, as: "User" },
+      order: [['id', 'ASC']]
+    });
     //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
-    res.render('tasks/edit', { task: task, teamId: teamId });
+    res.render('tasks/edit', { task: task, teamId: teamId, members:members });
   }
 
 
@@ -72,6 +77,8 @@ class TasksController extends Controller {
         {
           title: req.body.taskTitle,
           body: req.body.taskBody,
+          assigneeId: req.body.selectedAssigneeId,
+          creatorId: req.user.id,
           status: 0
         },
         { where: { id: teamId } }

@@ -8,7 +8,7 @@ block content
     _csrf
     select(name="addUserId")
       each user in users
-        option(value=user.id) #{user.username}
+        option(value=user.id) #{user.displayName}
     input(type="submit")
 
   h2 メンバー一覧
@@ -19,4 +19,4 @@ block content
     each member in members
       tr
         td #{member.role}
-        td #{member.User.username}
+        td #{member.User.displayName}
