@@ -16,10 +16,10 @@ class MembersController extends Controller {
     });
 
     //userIdに関係するusernameの取得
-    await members.forEach( async (member) => {
-      const user = await member.getUser();
-      member.userName = user.username;
-    });
+    for (var i = 0; i < members.length; i++){
+      const user = await members[i].getUser();
+      members[i].userName = user.username;
+    }
     const users = await User.findAll({
       order: [['id', 'ASC']]
     });
