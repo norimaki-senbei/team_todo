@@ -22,7 +22,7 @@ block content
       select(name="assigneeId")
         option(value=0) なし
         each member in members
-          option(value=member.id) #{member.userName}
+          option(value=member.id) #{member.User.username}
 
     div
       button(type="submit") 送信

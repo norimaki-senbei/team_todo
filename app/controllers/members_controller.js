@@ -12,14 +12,10 @@ class MembersController extends Controller {
     const team = await Team.findByPk(teamId);
     //teamIdに結びついたメンバーを全て抜き出す
     const members = await team.getTeamMember({
+      include: { model: User, as: 'User' },
       order: [['userId', 'ASC']]
     });
 
-    //userIdに関係するusernameの取得
-    for (var i = 0; i < members.length; i++){
-      const user = await members[i].getUser();
-      members[i].userName = user.username;
-    }
     const users = await User.findAll({
       order: [['id', 'ASC']]
     });

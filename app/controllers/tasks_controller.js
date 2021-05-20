@@ -10,12 +10,10 @@ class TasksController extends Controller {
     const teamId = req.params.team;
     const team = await Team.findByPk(teamId);
     const members = await team.getTeamMember({
+      include: { model: User, as: "User" },
       order: [['id', 'ASC']]
     });
-    for (var i = 0; i < members.length; i++){
-      const user = await members[i].getUser();
-      members[i].userName = user.username;
-    }
+
     res.render('tasks/create', { teamId: teamId, members: members } );
   }
 
