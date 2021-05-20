@@ -5,7 +5,8 @@ module.exports = {
     await queryInterface.addColumn('Tasks', 'creatorId', {
       type: Sequelize.INTEGER,
       defaultValue: 0,
-      allowNull: false
+      allowNull: false,
+      //references: { model: 'Users', key: 'id' }
     })
   },
 

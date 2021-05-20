@@ -19,6 +19,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'UserMember'
       });
+      this.CreatorTask = this.belongsTo(models.Task, {
+        foreignKey: 'creatorId',
+        as: 'CreatorTask'
+      });
+      this.AssigneeTask = this.belongsTo(models.Task, {
+        foreignKey: 'assigneeId',
+        as: 'AssigneeTask'
+      });
     }
 
     static async signIn(params) {

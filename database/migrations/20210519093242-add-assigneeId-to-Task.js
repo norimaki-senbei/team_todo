@@ -3,7 +3,8 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('Tasks', 'assigneeId', {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      references: { model: 'Users', key: 'id' }
     })
   },
 
