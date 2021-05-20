@@ -20,8 +20,9 @@ block content
     div
       label(for="assigneeId") 担当者
       select(name="assigneeId")
-        //each user in users
-        //  option(value=user.id) #{user.username}
+        option(value=0) なし
+        each member in members
+          option(value=member.id) #{member.userName}
 
     div
       button(type="submit") 送信

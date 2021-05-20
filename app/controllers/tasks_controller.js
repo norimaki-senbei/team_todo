@@ -3,11 +3,20 @@ const Controller = require('./controller');
 const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
+const User = models.User;
 
-class TeamsController extends Controller {
-  create(req, res) {
+class TasksController extends Controller {
+  async create(req, res) {
     const teamId = req.params.team;
-    res.render('tasks/create', { teamId } );
+    const team = await Team.findByPk(teamId);
+    const members = await team.getTeamMember({
+      order: [['id', 'ASC']]
+    });
+    for (var i = 0; i < members.length; i++){
+      const user = await members[i].getUser();
+      members[i].userName = user.username;
+    }
+    res.render('tasks/create', { teamId: teamId, members: members } );
   }
 
   async store(req, res) {
@@ -84,4 +93,4 @@ class TeamsController extends Controller {
 
 }
 
-module.exports = TeamsController;
+module.exports = TasksController;
