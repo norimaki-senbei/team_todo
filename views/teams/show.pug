@@ -14,11 +14,13 @@ block content
     tr
       th タスクID
       th タイトル
+      th 担当者
       th 作成日時
       th 操作
     each task in tasks
       tr
         td #{task.id}
+        td #{task.title}
         td #{task.title}
         td #{task.formattedCreatedAt}
         td 

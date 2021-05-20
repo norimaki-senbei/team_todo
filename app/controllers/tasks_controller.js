@@ -13,7 +13,6 @@ class TasksController extends Controller {
       include: { model: User, as: "User" },
       order: [['id', 'ASC']]
     });
-
     res.render('tasks/create', { teamId: teamId, members: members } );
   }
 
@@ -24,6 +23,8 @@ class TasksController extends Controller {
         teamId: req.params.team,
         title: req.body.taskTitle,
         body: req.body.taskBody,
+        assigneeId: req.body.selectedAssigneeId,
+        creatorId: req.user.id,
         status: 0
       });
       

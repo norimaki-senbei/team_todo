@@ -18,8 +18,8 @@ block content
       label(for="taskBody") 内容
       textarea(name="taskBody", rows="3")
     div
-      label(for="assigneeId") 担当者
-      select(name="assigneeId")
+      label(for="selectedAssigneeId") 担当者
+      select(name="selectedAssigneeId")
         option(value=0) なし
         each member in members
           option(value=member.id) #{member.User.username}

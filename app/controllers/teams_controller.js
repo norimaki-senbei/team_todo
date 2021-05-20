@@ -2,6 +2,8 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
+const Member = models.Member;
+const User = models.User;
 const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
@@ -39,6 +41,7 @@ class TeamsController extends Controller {
     await tasks.forEach((task) => {
       task.formattedCreatedAt = moment(task.createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
     });
+    //tasks内のassigneeIdに結びつくdisplayNameを取得
     res.render('teams/show', { team: team, tasks: tasks } );
   }
 
