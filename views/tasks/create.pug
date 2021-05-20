@@ -17,6 +17,11 @@ block content
     div
       label(for="taskBody") 内容
       textarea(name="taskBody", rows="3")
+    div
+      label(for="assigneeId") 担当者
+      select(name="assigneeId")
+        //each user in users
+        //  option(value=user.id) #{user.username}
 
     div
       button(type="submit") 送信
