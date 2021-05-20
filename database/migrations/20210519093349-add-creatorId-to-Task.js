@@ -6,7 +6,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       defaultValue: 0,
       allowNull: false,
-      //references: { model: 'Users', key: 'id' }
+      //references: { model: 'Users', key: 'id' },  
     })
   },
 
