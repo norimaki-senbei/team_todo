@@ -1,6 +1,7 @@
 const { Route } = require('../lib/route');
 const forceLogin = require('../app/middlewares/force_login');
 const forceAdmin = require('../app/middlewares/force_admin');
+const managableTeam = require('../app/middlewares/managable_team');
 
 const route = new Route();
 
@@ -19,7 +20,7 @@ const adminRoute = route.sub('/admin', forceLogin, forceAdmin);
 adminRoute.resource('users', 'admin/users_controller');
 
 //taskのルーティング設定
-const teamRoute = route.sub('/manager/teams/:team', forceLogin);
+const teamRoute = route.sub('/manager/teams/:team', forceLogin, managableTeam);
 teamRoute.resource('tasks', { controller: 'manager/tasks_controller', only: ['store', 'create', 'update', 'edit'] });
 
 //Memberのルーティング設定
