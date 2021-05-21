@@ -33,7 +33,7 @@ class TeamsController extends Controller {
     const team = await Team.findByPk(teamId);
     //teamIdに結びついたタスクを全て抜き出す
     const tasks = await team.getTeamTask({
-      include: { model: User, as: 'Assignee'},
+      include: { model: User, as: 'Assignee' },
       order: [['id', 'ASC']]
     });
     res.render('teams/show', { team: team, tasks: tasks } );

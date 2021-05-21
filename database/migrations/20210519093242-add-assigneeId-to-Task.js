@@ -5,10 +5,10 @@ module.exports = {
     await queryInterface.addColumn('Tasks', 'assigneeId', {
       type: Sequelize.INTEGER,
       references: { model: 'Users', key: 'id' }
-    })
+    });
   },
 
   down: async (queryInterface, _Sequelize) => {
-    await queryInterface.removeColumn('Tasks', 'assigneeId')
+    await queryInterface.removeColumn('Tasks', 'assigneeId');
   }
 };

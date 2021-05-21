@@ -4,7 +4,6 @@ const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
 const User = models.User;
-const Member = models.Member;
 
 class TasksController extends Controller {
   async create(req, res) {
