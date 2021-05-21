@@ -8,8 +8,7 @@ module.exports = async function managableTeam(req, res, next) {
   });
   const member = members[0];
   //managerはrole=1(roleはstring)
-  const isManager = member.role;
-  if (isManager == 1) {
+  if (member.role == 1) {
     return next();
   }
   await req.flash('alert', 'アクセスできません');
