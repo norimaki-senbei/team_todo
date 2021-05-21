@@ -2,7 +2,6 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
-const User = models.User;
 
 class TeamsController extends Controller {
   create(req, res) {
