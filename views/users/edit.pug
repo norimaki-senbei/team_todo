@@ -1,9 +1,9 @@
-extends ../../layout
+extends ../layout
 
 block content
   h2= __('views.Profile')
 
-  form(action=`/manager/user`, method="post")
+  form(action=`/user`, method="post")
     _method put
     _csrf
 
