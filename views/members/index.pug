@@ -1,0 +1,22 @@
+extends ../layout
+
+block content 
+  h2 新メンバー追加
+  //TODOプルダウンでメンバーを追加できるようにする
+  form(action=`/teams/${team.id}/members`, method="post")
+    _method post
+    _csrf
+    select(name="addUserId")
+      each user in users
+        option(value=user.id) #{user.displayName}
+    input(type="submit")
+
+  h2 メンバー一覧
+  table(border="2")
+    tr
+      th 役割
+      th 名前
+    each member in members
+      tr
+        td #{member.role}
+        td #{member.User.displayName}

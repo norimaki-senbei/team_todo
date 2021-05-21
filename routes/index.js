@@ -21,4 +21,8 @@ adminRoute.resource('users', 'admin/users_controller');
 const teamRoute = route.sub('/teams/:team', forceLogin);
 teamRoute.resource('tasks', { controller: 'tasks_controller', only: ['store', 'create', 'update', 'edit'] });
 
+//Memberのルーティング設定
+teamRoute.resource('members', { controller: 'members_controller', only: ['index', 'store'] });
+
+
 module.exports = route.router;

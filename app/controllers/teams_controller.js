@@ -2,7 +2,6 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
-const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -15,11 +14,11 @@ class TeamsController extends Controller {
         name: req.body.teamName,
         ownerId: req.user.id
       });
-      
+
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
       res.redirect(`/teams/${team.id}`);
 
-    } catch (err) { 
+    } catch (err) {
       if(err instanceof ValidationError) {
         res.render('teams/create', { err: err });
       } else{
