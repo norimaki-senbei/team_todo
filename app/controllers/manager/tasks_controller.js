@@ -1,6 +1,6 @@
 const { ValidationError } = require('sequelize');
-const Controller = require('./controller');
-const models = require('../models');
+const Controller = require('../controller');
+const models = require('../../models');
 const Task = models.Task;
 const Team = models.Team;
 const User = models.User;
@@ -13,7 +13,7 @@ class TasksController extends Controller {
       include: { model: User, as: "User" },
       order: [['id', 'ASC']]
     });
-    res.render('tasks/create', { teamId: teamId, members: members } );
+    res.render('manager/tasks/create', { teamId: teamId, members: members } );
   }
 
   async store(req, res) {
@@ -30,11 +30,11 @@ class TasksController extends Controller {
       });
 
       await req.flash('info', '新規の予定' + task.title + 'を作成しました');
-      res.redirect(`/teams/${task.teamId}`);
+      res.redirect(`/manager/teams/${task.teamId}`);
 
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('tasks/create', { err: err });
+        res.render('manager/tasks/create', { err: err });
       } else{
         throw err;
       }
@@ -56,7 +56,7 @@ class TasksController extends Controller {
       order: [['id', 'ASC']]
     });
     //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
-    res.render('tasks/edit', { task: task, teamId: teamId, members:members });
+    res.render('manager/tasks/edit', { task: task, teamId: teamId, members:members });
   }
 
 
@@ -84,10 +84,10 @@ class TasksController extends Controller {
       );
 
       await req.flash('info', '予定' + task.title + 'を変更しました');
-      res.redirect(`/teams/${teamId}`);
+      res.redirect(`/manager/teams/${teamId}`);
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('tasks/edit', { err: err });
+        res.render('manager/tasks/edit', { err: err });
       } else{
         throw err;
       }

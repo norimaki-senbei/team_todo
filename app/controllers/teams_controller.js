@@ -17,48 +17,11 @@ class TeamsController extends Controller {
       });
 
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
-      res.redirect(`/teams/${team.id}`);
+      res.redirect(`/manager/teams/${team.id}`);
 
     } catch (err) {
       if(err instanceof ValidationError) {
         res.render('teams/create', { err: err });
-      } else{
-        throw err;
-      }
-    }
-  }
-
-  async show(req, res) {
-    const teamId = req.params.team;
-    const team = await Team.findByPk(teamId);
-    //teamIdに結びついたタスクを全て抜き出す
-    const tasks = await team.getTeamTask({
-      include: { model: User, as: 'Assignee' },
-      order: [['id', 'ASC']]
-    });
-    res.render('teams/show', { team: team, tasks: tasks } );
-  }
-
-  async edit(req, res) {
-    const teamId = req.params.team;
-    const team = await Team.findByPk(teamId);
-    res.render('teams/edit', { team });
-  }
-
-  async update(req, res) {
-    try{
-      const teamId = req.params.team;
-      const teamName = req.body.teamName;
-      const team = await Team.findByPk(teamId);
-      await team.update(
-        { name: teamName },
-        { where: { id: teamId } }
-      );
-      await req.flash('info', 'チーム名を' + team.name + 'に変更しました');
-      res.redirect(`/teams/${teamId}`);
-    } catch (err) {
-      if(err instanceof ValidationError) {
-        res.render('teams/edit', { err: err });
       } else{
         throw err;
       }

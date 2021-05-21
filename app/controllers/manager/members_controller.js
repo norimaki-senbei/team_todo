@@ -1,6 +1,6 @@
 const { ValidationError } = require('sequelize');
-const Controller = require('./controller');
-const models = require('../models');
+const Controller = require('../controller');
+const models = require('../../models');
 const Team = models.Team;
 const User = models.User;
 const Member = models.Member;
@@ -20,7 +20,7 @@ class MembersController extends Controller {
       order: [['id', 'ASC']]
     });
     //await console.log(members);
-    res.render('members/index', { team: team, members: members, users: users } );
+    res.render('manager/members/index', { team: team, members: members, users: users } );
   }
 
   async store(req, res) {
@@ -33,7 +33,7 @@ class MembersController extends Controller {
       });
 
       await req.flash('info', '新規メンバーを追加しました');
-      res.redirect(`/teams/${teamId}/members`);
+      res.redirect(`/manager/teams/${teamId}/members`);
 
     } catch (err) {
       if(err instanceof ValidationError) {

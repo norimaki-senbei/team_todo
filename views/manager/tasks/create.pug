@@ -1,8 +1,8 @@
-extends ../layout
+extends ../../layout
 
 block content
   h2 タスクの新規作成
-  form(action=`/teams/${ teamId }/tasks`, method="post")
+  form(action=`/manager/teams/${ teamId }/tasks`, method="post")
     _method post
     _csrf
 

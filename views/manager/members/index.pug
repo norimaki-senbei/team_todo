@@ -1,9 +1,9 @@
-extends ../layout
+extends ../../layout
 
-block content 
+block content
   h2 新メンバー追加
   //TODOプルダウンでメンバーを追加できるようにする
-  form(action=`/teams/${team.id}/members`, method="post")
+  form(action=`/manager/teams/${team.id}/members`, method="post")
     _method post
     _csrf
     select(name="addUserId")
