@@ -20,10 +20,7 @@ block content
       select(name="selectedAssigneeId")
         option(value=0) なし
         each member in members
-          if member.userId == task.assigneeId
-            option(value=member.User.id, selected=true) #{member.User.displayName}
-          else
-            option(value=member.User.id) #{member.User.displayName}
+          option(value=member.User.id, selected=(task.assigneeId == member.User.id)) #{member.User.displayName}
 
     div
       button(type="submit") 送信
