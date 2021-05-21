@@ -1,5 +1,5 @@
 const { ValidationError } = require('sequelize');
-const Controller = require('./controller');
+const Controller = require('../controller');
 
 class UsersController extends Controller {
   edit(req, res) {
@@ -10,7 +10,7 @@ class UsersController extends Controller {
   async update(req, res) {
     const user = req.user;
     try {
-      user.displayName = req.body.displayName;  
+      user.displayName = req.body.displayName;
       await user.save();
       await req.flash('info', '更新しました');
       res.redirect(`/user/edit`);
