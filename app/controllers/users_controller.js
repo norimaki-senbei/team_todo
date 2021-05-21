@@ -1,5 +1,5 @@
 const { ValidationError } = require('sequelize');
-const Controller = require('../controller');
+const Controller = require('./controller');
 
 class UsersController extends Controller {
   edit(req, res) {
