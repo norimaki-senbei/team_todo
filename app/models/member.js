@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       // define association here
     }
-  };
+  }
   Member.init({
     teamId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,

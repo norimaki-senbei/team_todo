@@ -6,7 +6,7 @@ const User = models.User;
 const Member = models.Member;
 
 class MembersController extends Controller {
-  
+
   async index(req, res) {
     const teamId = req.params.team;
     const team = await Team.findByPk(teamId);

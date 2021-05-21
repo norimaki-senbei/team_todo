@@ -2,9 +2,7 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
-const Member = models.Member;
 const User = models.User;
-const moment = require('moment-timezone');
 
 class TeamsController extends Controller {
   create(req, res) {

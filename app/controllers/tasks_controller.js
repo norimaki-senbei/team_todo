@@ -4,6 +4,7 @@ const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
 const User = models.User;
+const Member = models.Member;
 
 class TasksController extends Controller {
   async create(req, res) {
@@ -44,14 +45,13 @@ class TasksController extends Controller {
   async edit(req, res) {
     const taskId = req.params.task;
     const teamId = req.params.team;
-    //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更できちゃう。
-    //要確認
+
     const team = await Team.findByPk(teamId);
     const tasks = await team.getTeamTask({
-      //include: { model: User, as: "Assignee" },
       where: { id: taskId }
     });
     const task = tasks[0];
+
     const members = await team.getTeamMember({
       include: { model: User, as: "User" },
       order: [['id', 'ASC']]
