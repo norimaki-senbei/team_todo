@@ -1,6 +1,6 @@
 extends ../layout
 
-block content 
+block content
   h2 タスクの編集
   form(action=`/teams/${ teamId }/tasks/${ task.id }`, method="post")
     _csrf
@@ -17,9 +17,9 @@ block content
     div
       label(for="selectedAssigneeId") 担当者
       select(name="selectedAssigneeId")
-        option(value=0) なし
         each member in members
-          option(value=member.id) #{member.User.displayName}
+          option(value=member.User.id) #{member.User.displayName}
+        option(value=0) なし
 
     div
       button(type="submit") 送信
