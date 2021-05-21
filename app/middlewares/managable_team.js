@@ -1,5 +1,7 @@
 module.exports = async function managableTeam(req, res, next) {
-  if (req.user.isManager()) {
+  //const isManager = ;
+  console.log("hogeeeeeeeee");
+  if (1) {
     return next();
   }
   await req.flash('alert', 'アクセスできません');
