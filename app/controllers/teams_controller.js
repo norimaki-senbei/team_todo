@@ -2,6 +2,7 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
+const Member = models.Member;
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -13,6 +14,13 @@ class TeamsController extends Controller {
       const team = await Team.create({
         name: req.body.teamName,
         ownerId: req.user.id
+      });
+
+      //チーム作成者をmanagerとしてMember登録する
+      await Member.create({
+        teamId: team.id,
+        userId: req.user.id,
+        role: 1
       });
 
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
