@@ -28,7 +28,7 @@ class TasksController extends Controller {
         creatorId: req.user.id,
         status: 0
       });
-      
+
       await req.flash('info', '新規の予定' + task.title + 'を作成しました');
       res.redirect(`/teams/${task.teamId}`);
 
@@ -46,11 +46,11 @@ class TasksController extends Controller {
     const teamId = req.params.team;
     //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更できちゃう。
     //要確認
-    const team = await Team.findByPk(teamId); 
+    const team = await Team.findByPk(teamId);
     const tasks = await team.getTeamTask({
       //include: { model: User, as: "Assignee" },
       where: { id: taskId }
-    }); 
+    });
     const task = tasks[0];
     const members = await team.getTeamMember({
       include: { model: User, as: "User" },
@@ -66,11 +66,11 @@ class TasksController extends Controller {
       const teamId = req.params.team;
       const taskId = req.params.task;
       //予定の編集はこれでOK？タスクIdとチームIdの両方から引っ張ったほうがいい気がする。そうしないと適当にURLうったら違うチームでも変更される。
-      //要確認 
-      const team = await Team.findByPk(teamId); 
+      //要確認
+      const team = await Team.findByPk(teamId);
       const tasks = await team.getTeamTask({
         where: { id: taskId }
-      }); 
+      });
       const task = tasks[0];
       //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
 
@@ -83,7 +83,7 @@ class TasksController extends Controller {
           status: 0
         }
       );
-      
+
       await req.flash('info', '予定' + task.title + 'を変更しました');
       res.redirect(`/teams/${teamId}`);
     } catch (err) {
@@ -94,9 +94,6 @@ class TasksController extends Controller {
       }
     }
   }
-
-
-
 }
 
 module.exports = TasksController;

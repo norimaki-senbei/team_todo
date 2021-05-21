@@ -17,11 +17,11 @@ class TeamsController extends Controller {
         name: req.body.teamName,
         ownerId: req.user.id
       });
-      
+
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
       res.redirect(`/teams/${team.id}`);
 
-    } catch (err) { 
+    } catch (err) {
       if(err instanceof ValidationError) {
         res.render('teams/create', { err: err });
       } else{
@@ -38,11 +38,6 @@ class TeamsController extends Controller {
       include: { model: User, as: 'Assignee'},
       order: [['id', 'ASC']]
     });
-    //日付のフォーマット変更
-    await tasks.forEach((task) => {
-      task.formattedCreatedAt = moment(task.createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
-    });
-    //tasks内のassigneeIdに結びつくdisplayNameを取得
     res.render('teams/show', { team: team, tasks: tasks } );
   }
 
