@@ -1,6 +1,6 @@
 extends ../layout
 
-block content 
+block content
   h2 タスクの新規作成
   form(action=`/teams/${ teamId }/tasks`, method="post")
     _method post
@@ -17,6 +17,13 @@ block content
     div
       label(for="taskBody") 内容
       textarea(name="taskBody", rows="3")
+    div
+      label(for="selectedAssigneeId") 担当者
+      select(name="selectedAssigneeId")
+        option(value=0) なし
+        each member in members
+          //members内にはmemberに結びついたUserが入っているので、表示名と送るIDを一致させるためにはmember.Userで取得する必要あり
+          option(value=member.User.id) #{member.User.displayName}
 
     div
       button(type="submit") 送信

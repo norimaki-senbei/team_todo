@@ -6,14 +6,14 @@ const User = models.User;
 const Member = models.Member;
 
 class MembersController extends Controller {
-  
+
   async index(req, res) {
     const teamId = req.params.team;
     const team = await Team.findByPk(teamId);
     //teamIdに結びついたメンバーを全て抜き出す
     const members = await team.getTeamMember({
       include: { model: User, as: 'User' },
-      order: [['userId', 'ASC']]
+      order: [ [ 'id', 'ASC' ] ]
     });
 
     const users = await User.findAll({

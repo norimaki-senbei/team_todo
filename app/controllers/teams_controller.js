@@ -2,6 +2,7 @@ const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
+const User = models.User;
 
 class TeamsController extends Controller {
   create(req, res) {
@@ -32,6 +33,7 @@ class TeamsController extends Controller {
     const team = await Team.findByPk(teamId);
     //teamIdに結びついたタスクを全て抜き出す
     const tasks = await team.getTeamTask({
+      include: { model: User, as: 'Assignee' },
       order: [['id', 'ASC']]
     });
     res.render('teams/show', { team: team, tasks: tasks } );

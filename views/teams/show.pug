@@ -1,12 +1,12 @@
 extends ../layout
 
-block content 
+block content
   h1 #{team.name}
-  a(href=`/teams/${team.id}/edit`) チーム名の編集 
+  a(href=`/teams/${team.id}/edit`) チーム名の編集
   p
-    a(href=`/teams/${team.id}/tasks/create`) 新規タスクの作成 
+    a(href=`/teams/${team.id}/tasks/create`) 新規タスクの作成
   p
-    a(href=`/teams/${team.id}/members`) メンバーの管理 
+    a(href=`/teams/${team.id}/members`) メンバーの管理
 
     //| / show
   h2 タスク一覧
@@ -14,13 +14,15 @@ block content
     tr
       th タスクID
       th タイトル
+      th 担当者
       th 作成日時
       th 操作
     each task in tasks
       tr
         td #{task.id}
         td #{task.title}
+        td #{task.Assignee.displayName}
         td #{helpers.formatDateTime(task.createdAt)}
-        td 
+        td
           a(href=`/teams/${team.id}/tasks/${task.id}/edit`) 編集
 
