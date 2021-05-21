@@ -11,7 +11,7 @@ route.get('/', function (req, res, _next) {
 });
 
 // resource style
-route.resource('manager/teams', managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
+route.resource('manager/teams', forceLogin , managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
 //route.resource('manager/teams', { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
 route.resource('teams', { controller: 'teams_controller', only: ['store', 'create'] });
 route.get('/user/edit', forceLogin, 'users_controller@edit');

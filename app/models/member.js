@@ -20,10 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       });
       // define association here
     }
-    isManager(){
-      //managerのroleは1だから
-      return this.role === 1;
-    }
   }
   Member.init({
     teamId: DataTypes.INTEGER,
