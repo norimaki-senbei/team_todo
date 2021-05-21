@@ -11,7 +11,7 @@ module.exports = {
       teamId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'Teams', key: 'id'}
+        references: { model: 'Teams', key: 'id' }
       },
       title: {
         allowNull: false,
@@ -35,7 +35,7 @@ module.exports = {
       }
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('Tasks');
   }
 };

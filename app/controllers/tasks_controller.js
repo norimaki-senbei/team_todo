@@ -4,7 +4,7 @@ const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
 
-class TeamsController extends Controller {
+class TasksController extends Controller {
   create(req, res) {
     const teamId = req.params.team;
     res.render('tasks/create', { teamId } );
@@ -65,8 +65,7 @@ class TeamsController extends Controller {
           title: req.body.taskTitle,
           body: req.body.taskBody,
           status: 0
-        },
-        { where: { id: teamId } }
+        }
       );
       
       await req.flash('info', '予定' + task.title + 'を変更しました');
@@ -80,8 +79,6 @@ class TeamsController extends Controller {
     }
   }
 
-
-
 }
 
-module.exports = TeamsController;
+module.exports = TasksController;
