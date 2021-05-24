@@ -25,7 +25,30 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    
+    static async createWithOwner(user, body) {
+      //チームをDBに保存
+      const team = await this.create({
+        name: body.teamName,
+        ownerId: user.id
+      });
+      //チーム作成者をmanagerとしてMember登録する
+      await team.createTeamMember({
+        teamId: team.id,
+        userId: user.id,
+        role: 1
+      });
+      return team
+    }
+
+    async isManager(user) {
+      const members = await user.getUserMember({
+        where: { teamId: this.id }
+      });
+      const member = members[0];
+      return member.role === 1
+    }
+
+
 
   }
   Team.init({
