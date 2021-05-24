@@ -1,16 +1,14 @@
 const models = require('../models');
 const User = models.User;
+const Team = models.Team;
 
 module.exports = async function managableTeam(req, res, next) {
+
   const user = await User.findByPk(req.user.id);
-  const members = await user.getUserMember({
-    where: { teamId: req.params.team }
-  });
-  const member = members[0];
-  //managerはrole=1(roleはstring)
-  if (member.role == 1) {
-    return next();
+  const team = await Team.findByPk(req.params.team);
+  if (!await team.isManager(user)) {
+    await req.flash('alert', 'アクセスできません');
+    res.redirect('/');
   }
-  await req.flash('alert', 'アクセスできません');
-  res.redirect('/');
+  return next();
 };
