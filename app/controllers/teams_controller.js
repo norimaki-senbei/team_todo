@@ -11,7 +11,6 @@ class TeamsController extends Controller {
   async store(req, res) {
     try{
       const team = await Team.createWithOwner(req.user, req.body);
-
       await req.flash('info', '新規チーム' + team.name + 'を作成しました');
       res.redirect(`/manager/teams/${team.id}`);
 

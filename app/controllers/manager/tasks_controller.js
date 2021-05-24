@@ -18,8 +18,8 @@ class TasksController extends Controller {
 
   async store(req, res) {
     try{
+
       //チームをDBに保存
-      console.log(req.body.selectedAssigneeId);
       const task = await Task.create({
         teamId: req.params.team,
         title: req.body.taskTitle,
@@ -34,7 +34,13 @@ class TasksController extends Controller {
 
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('manager/tasks/create', { err: err });
+        const teamId = req.params.team;
+        const team = await Team.findByPk(teamId);
+        const members = await team.getTeamMember({
+          include: { model: User, as: "User" },
+          order: [['id', 'ASC']]
+        });
+        res.render('manager/tasks/create', { teamId: teamId, members: members, err: err });
       } else{
         throw err;
       }
@@ -56,7 +62,7 @@ class TasksController extends Controller {
       order: [['id', 'ASC']]
     });
     //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
-    res.render('manager/tasks/edit', { task: task, teamId: teamId, members:members });
+    res.render('manager/tasks/edit', { task: task, teamId: teamId, members: members });
   }
 
 
@@ -72,7 +78,6 @@ class TasksController extends Controller {
       });
       const task = tasks[0];
       //ToDo仮にteamIdとtaskIdが一致する物がなかった場合の処理の追加
-
       await task.update(
         {
           title: req.body.taskTitle,
@@ -87,7 +92,20 @@ class TasksController extends Controller {
       res.redirect(`/manager/teams/${teamId}`);
     } catch (err) {
       if(err instanceof ValidationError) {
-        res.render('manager/tasks/edit', { err: err });
+        const taskId = req.params.task;
+        const teamId = req.params.team;
+
+        const team = await Team.findByPk(teamId);
+        const tasks = await team.getTeamTask({
+          where: { id: taskId }
+        });
+        const task = tasks[0];
+
+        const members = await team.getTeamMember({
+          include: { model: User, as: "User" },
+          order: [['id', 'ASC']]
+        });
+        res.render('manager/tasks/edit', { task: task, teamId: teamId, members: members, err: err });
       } else{
         throw err;
       }
