@@ -6,9 +6,6 @@ const managableTeam = require('../app/middlewares/managable_team');
 const route = new Route();
 
 // function style
-//route.get('/', function (req, res, _next) {
-//  res.render('index', { title: 'Express', user: req.user });
-//});
 route.get('/', 'top_controller@index');
 
 // resource style
