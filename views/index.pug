@@ -18,7 +18,7 @@ block content
         th 操作
       each task in tasks
         tr
-          td #{task.teamId}
+          td #{task.Team.name}
           td #{task.id}
           td #{task.title}
           td #{user.displayName}
