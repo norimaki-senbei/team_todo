@@ -2,15 +2,19 @@
 const Controller = require('./controller');
 const models = require('../models');
 const Team = models.Team;
+const Task = models.Task;
 const User = models.User;
 
 class TopController extends Controller {
   async index(req, res) {
     if(req.user) {
-      const user = await User.findByPk(req.user.id);
-      const tasks = await user.getAssignedTask({
-        order: [['id', 'ASC']]
+      //アサインしているタスクを取得
+      const tasks = await Task.findAll({
+        where: { assigneeId: req.user.id },
+        include: { model: Team, as: "Team" }
       });
+      //所属するチームを取得
+      const user = await User.findByPk(req.user.id);
       const members = await user.getUserMember({
         include: { model: Team, as: "Team" }
       });
