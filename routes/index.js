@@ -12,7 +12,6 @@ route.get('/', function (req, res, _next) {
 
 // resource style
 route.resource('manager/teams', forceLogin , managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
-//route.resource('manager/teams', { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
 route.resource('teams', { controller: 'teams_controller', only: ['store', 'create'] });
 route.get('/user/edit', forceLogin, 'users_controller@edit');
 route.put('/user', forceLogin, 'users_controller@update');
@@ -23,7 +22,6 @@ adminRoute.resource('users', 'admin/users_controller');
 
 //taskのルーティング設定
 const teamRoute = route.sub('/manager/teams/:team', forceLogin, managableTeam);
-//const teamRoute = route.sub('/manager/teams/:team', forceLogin);
 teamRoute.resource('tasks', { controller: 'manager/tasks_controller', only: ['store', 'create', 'update', 'edit'] });
 
 //Memberのルーティング設定
