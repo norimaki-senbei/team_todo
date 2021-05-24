@@ -7,9 +7,9 @@ html
   body
     .wrapper
       header
-        h1 
+        h1
           a(href="/")= __('AppTitle')
-        nav 
+        nav
           if(currentUser)
             span=__(`models.User.roles.${currentUser.role}`)
             | : #{currentUser.displayName}&nbsp;
@@ -17,13 +17,13 @@ html
               a(href="/admin/users") ユーザー管理
               | &nbsp;
             a(href="/logout") Logout
-          else 
-            a(href="/login") Login  
-          |  
+          else
+            a(href="/login") Login
+          |
           a(href="/user/edit") プロフィール編集
 
 
-      if flashMessages 
+      if flashMessages
         if flashMessages.info.length > 0
           each msg in flashMessages.info
             .flash-message.info-message= msg
