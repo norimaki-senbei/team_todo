@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         userId: user.id,
         role: 1
       });
-      return team
+      return team;
     }
 
     async isManager(user) {
@@ -45,10 +45,8 @@ module.exports = (sequelize, DataTypes) => {
         where: { teamId: this.id }
       });
       const member = members[0];
-      return member.role === 1
+      return member.role === 1;
     }
-
-
 
   }
   Team.init({
