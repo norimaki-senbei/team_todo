@@ -7,6 +7,7 @@ const User = models.User;
 class TeamsController extends Controller {
 
   async show(req, res) {
+    console.log();
     const teamId = req.params.team;
     const team = await Team.findByPk(teamId);
     //teamIdに結びついたタスクを全て抜き出す

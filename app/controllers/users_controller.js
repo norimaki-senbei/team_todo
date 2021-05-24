@@ -5,7 +5,6 @@ const Controller = require('./controller');
 class UsersController extends Controller {
   edit(req, res) {
     const user = req.user;
-    console.log("HOGE");
     res.render('users/edit', { user });
   }
 
