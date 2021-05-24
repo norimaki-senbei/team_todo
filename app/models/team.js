@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
         as: 'TeamMember'
       });
     }
+
+    
+
   }
   Team.init({
     name: DataTypes.STRING,

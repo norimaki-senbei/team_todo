@@ -8,6 +8,7 @@ class TeamsController extends Controller {
   create(req, res) {
     res.render('teams/create');
   }
+
   async store(req, res) {
     try{
       //チームをDBに保存
