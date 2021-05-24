@@ -14,7 +14,7 @@ route.get('/', 'top_controller@index');
 // resource style
 route.resource('tasks', forceLogin, { controller: 'tasks_controller', only: ['show'] });
 
-route.resource('manager/teams', forceLogin , managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
+route.resource('manager/teams', forceLogin, managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
 route.resource('teams', { controller: 'teams_controller', only: ['store', 'create'] });
 route.get('/user/edit', forceLogin, 'users_controller@edit');
 route.put('/user', forceLogin, 'users_controller@update');

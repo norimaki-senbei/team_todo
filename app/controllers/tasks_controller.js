@@ -1,9 +1,7 @@
-const { ValidationError } = require('sequelize');
+//const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Task = models.Task;
-const Team = models.Team;
-const User = models.User;
 
 class TasksController extends Controller {
   async show(req, res) {

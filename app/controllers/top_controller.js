@@ -1,7 +1,6 @@
 const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
-const Task = models.Task;
 const Team = models.Team;
 const User = models.User;
 
@@ -17,8 +16,7 @@ class TopController extends Controller {
         include: { model: Team, as: "Team" }
       });
       res.render('index', { title: 'Express', user: req.user, tasks: tasks, members: members });
-    }
-    else {
+    }else {
       res.render('index', { title: 'Express', user: req.user });
     }
   }
