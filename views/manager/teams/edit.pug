@@ -1,9 +1,9 @@
-extends ../layout
+extends ../../layout
 
-block content 
+block content
   h2 チーム名の編集
 
-  form.box(action=`/teams/${team.id}`, method="post")
+  form.box(action=`/manager/teams/${team.id}`, method="post")
     _csrf
     _method put
 
