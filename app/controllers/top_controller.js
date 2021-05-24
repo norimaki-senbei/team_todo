@@ -6,7 +6,7 @@ const User = models.User;
 
 class TopController extends Controller {
   async index(req, res) {
-    //if(req.user) {
+    if(req.user) {
       const user = await User.findByPk(req.user.id);
       const tasks = await user.getAssignedTask({
         order: [['id', 'ASC']]
@@ -15,9 +15,9 @@ class TopController extends Controller {
         include: { model: Team, as: "Team" }
       });
       res.render('index', { title: 'Express', user: req.user, tasks: tasks, members: members });
-    //}else {
-    //  res.render('index', { title: 'Express', user: req.user });
-    //}
+    }else {
+      res.render('index', { title: 'Express', user: req.user });
+    }
   }
 }
 module.exports = TopController;
