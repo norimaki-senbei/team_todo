@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'タイトルはからではいけません'
         },
         len: {
-          args: [1,9],
+          args: [1, 9],
           msg: 'タイトルは10文字未満です'
         }
       }
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         len: {
-          args: [0,29],
+          args: [0, 29],
           msg: '本文は30文字未満です'
         }
       }

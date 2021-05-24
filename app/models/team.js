@@ -56,7 +56,8 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'チーム名は必須です'
         }
-    }},
+      }
+    },
     ownerId: DataTypes.INTEGER
   }, {
     sequelize,
