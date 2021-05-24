@@ -6,12 +6,12 @@ const managableTeam = require('../app/middlewares/managable_team');
 const route = new Route();
 
 // function style
-route.get('/', function (req, res, _next) {
-  res.render('index', { title: 'Express', user: req.user });
-});
+route.get('/', 'top_controller@index');
 
 // resource style
-route.resource('manager/teams', forceLogin , managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
+route.resource('tasks', forceLogin, { controller: 'tasks_controller', only: ['show'] });
+
+route.resource('manager/teams', forceLogin, managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
 route.resource('teams', { controller: 'teams_controller', only: ['store', 'create'] });
 route.get('/user/edit', forceLogin, 'users_controller@edit');
 route.put('/user', forceLogin, 'users_controller@update');

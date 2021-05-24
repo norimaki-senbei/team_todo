@@ -3,6 +3,46 @@ extends layout
 block content
   p Welcome to #{title}
   a(href="/teams/create") チーム作成
-  p 
-    a(href="/examples") CRUDのリソースのサンプル      
-    
+  p
+    a(href="/examples") CRUDのリソースのサンプル
+
+  if(user)
+    h2 アサインされているタスク
+    table(border="2")
+      tr
+        th チーム
+        th タスクID
+        th タイトル
+        th 担当者
+        th 作成日時
+        th 操作
+      each task in tasks
+        tr
+          td #{task.Team.name}
+          td #{task.id}
+          td #{task.title}
+          td #{user.displayName}
+          td #{helpers.formatDateTime(task.createdAt)}
+          td
+            a(href=`/tasks/${task.id}`) 詳細
+
+    h2 所属しているチーム
+    table(border="2")
+      tr
+        th チームID
+        th 名前
+        th 役割
+        th 作成日時
+        th 管理
+      each member in members
+        tr
+          td #{member.Team.id}
+          td #{member.Team.name}
+          td #{member.role}
+          td #{helpers.formatDateTime(member.Team.createdAt)}
+          td
+            a(href=`/manager/teams/${member.Team.id}`) 管理
+  else
+    p ログインしてから操作してください
+
+
