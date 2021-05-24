@@ -3,10 +3,16 @@ const Controller = require('./controller');
 const models = require('../models');
 const Task = models.Task;
 const Team = models.Team;
+const User = models.User;
 
 class TopController extends Controller {
   async index(req, res) {
-    res.render('index', { title: 'Express', user: req.user });
+    const userId = req.user.id;
+    const user = await User.findByPk(userId);
+    const tasks = await user.getAssignedTask({
+      order: [['id', 'ASC']]
+    });
+    res.render('index', { title: 'Express', user: req.user, tasks: tasks });
   }
 
 

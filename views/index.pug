@@ -3,6 +3,25 @@ extends layout
 block content
   p Welcome to #{title}
   a(href="/teams/create") チーム作成
-  p 
-    a(href="/examples") CRUDのリソースのサンプル      
-    
+  p
+    a(href="/examples") CRUDのリソースのサンプル
+
+  h2 アサインされているタスク
+  table(border="2")
+    tr
+      th チーム
+      th タスクID
+      th タイトル
+      th 担当者
+      th 作成日時
+      th 操作
+    each task in tasks
+      tr
+        td #{task.teamId}
+        td #{task.id}
+        td #{task.title}
+        td #{user.displayName}
+        td #{helpers.formatDateTime(task.createdAt)}
+        td
+          a(href=``) 詳細
+
