@@ -4,3 +4,23 @@ block content
   h1 チーム#{task.teamId} / タスク#{task.id}
   h2 内容
   p #{task.body}
+
+  h2 コメント
+  //TODOコメントの一覧表示
+  ul
+    each comment in comments
+      li #{comment.message}
+      |  #{helpers.formatDateTime(comment.createdAt)} #{comment.User.displayName}
+  form(action=`/tasks/${task.id}/comments`, method="post")
+    _method post
+    _csrf
+
+    - if(err)
+      ul.errors
+        each error in err.errors
+          li= error.message
+
+    p メッセージ
+    textarea(name="message", rows="5")
+    div
+      button(type="submit") 送信

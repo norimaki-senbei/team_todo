@@ -10,11 +10,14 @@ route.get('/', 'top_controller@index');
 
 // resource style
 route.resource('tasks', forceLogin, { controller: 'tasks_controller', only: ['show'] });
+//タスクのコメント
+route.post('/tasks/:task/comments', forceLogin, 'tasks_controller@comment');
 
 route.resource('manager/teams', forceLogin, managableTeam, { controller: 'manager/teams_controller', only: ['show', 'update', 'edit'] });
 route.resource('teams', { controller: 'teams_controller', only: ['store', 'create'] });
 route.get('/user/edit', forceLogin, 'users_controller@edit');
 route.put('/user', forceLogin, 'users_controller@update');
+
 
 // /adminのURL階層の作成。ログインチェック、管理者チェックが有効。
 const adminRoute = route.sub('/admin', forceLogin, forceAdmin);
