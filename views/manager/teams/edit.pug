@@ -6,7 +6,10 @@ block content
   form.box(action=`/manager/teams/${team.id}`, method="post")
     _csrf
     _method put
-
+    - if(err)
+      ul.errors
+        each error in err.errors
+          li= error.message
 
     div
       label(for="teamName") チーム名を入力してね
