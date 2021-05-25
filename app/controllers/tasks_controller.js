@@ -18,12 +18,21 @@ class TasksController extends Controller {
   async comment(req, res) {
     try{
       const taskId = req.params.task
+      let kind = 0
+      if (req.body.isCompleted === 'completed') {
+        const task = await Task.findByPk(taskId);
+        await task.update({
+          status: 1
+        });
+        kind = 1;
+      }
       await Comment.create({
         taskId: taskId,
         creatorId: req.user.id,
         message: req.body.message,
-        kind: 0
+        kind: kind
       });
+      console.log(kind);
       res.redirect(`/tasks/${taskId}`);
 
     } catch (err) {

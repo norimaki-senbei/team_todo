@@ -6,7 +6,6 @@ block content
   p #{task.body}
 
   h2 コメント
-  //TODOコメントの一覧表示
   ul
     each comment in comments
       li #{comment.message}
@@ -22,5 +21,11 @@ block content
 
     p メッセージ
     textarea(name="message", rows="5")
+    if (task.status==0)
+      div
+        label(for="isCompleted") 完了報告
+        input(type="checkbox", name="isCompleted", value="completed")
+    else
+      p 既に完了報告済みです
     div
       button(type="submit") 送信
