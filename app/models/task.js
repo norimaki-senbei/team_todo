@@ -28,6 +28,19 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Comments'
       });
     }
+
+    async finish(user, body) {
+      const task = await this.update({
+        status: 1
+      });
+      await task.createComments({
+        taskId: task.id,
+        creatorId: user.id,
+        message: body.message,
+        kind: 1
+      });
+    };
+
   }
   Task.init({
     teamId: DataTypes.INTEGER,
