@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         message: body.message,
         kind: 1
       });
-    };
+    }
 
   }
   Task.init({

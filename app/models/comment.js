@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Task'
       });
     }
-  };
+  }
   Comment.init({
     taskId: DataTypes.INTEGER,
     creatorId: DataTypes.INTEGER,

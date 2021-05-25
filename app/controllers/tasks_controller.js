@@ -1,4 +1,4 @@
-//const { ValidationError } = require('sequelize');
+const { ValidationError } = require('sequelize');
 const Controller = require('./controller');
 const models = require('../models');
 const Task = models.Task;
@@ -17,7 +17,7 @@ class TasksController extends Controller {
   }
   async comment(req, res) {
     try{
-      const taskId = req.params.task
+      const taskId = req.params.task;
       if (req.body.isCompleted === 'completed') {
         const task = await Task.findByPk(taskId);
         task.finish(req.user, req.body);
