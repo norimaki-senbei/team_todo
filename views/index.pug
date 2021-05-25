@@ -7,7 +7,7 @@ block content
     a(href="/examples") CRUDのリソースのサンプル
 
   if(user)
-    h2 アサインされているタスク
+    h2= __('views.Message.AssignedTasks')
     table(border="2")
       tr
         th チーム
@@ -26,7 +26,7 @@ block content
           td
             a(href=`/tasks/${task.id}`) 詳細
 
-    h2 所属しているチーム
+    h2= __('views.Message.BelongTeam')
     table(border="2")
       tr
         th チームID
