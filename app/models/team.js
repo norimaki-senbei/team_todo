@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         where: { teamId: this.id }
       });
       const member = members[0];
-      return parseInt(member.role) === 1;
+      return member.role === 1;
     }
 
   }
