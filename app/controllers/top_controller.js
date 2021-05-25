@@ -7,7 +7,10 @@ const User = models.User;
 
 class TopController extends Controller {
   async index(req, res) {
+    //userがログインしているか分岐
     if(req.user) {
+      //?lang=enなら英語、クエリがなければ日本語
+      req.setLocale(req.query.lang || 'ja');
       //アサインしているタスクを取得
       const tasks = await Task.findAll({
         where: { assigneeId: req.user.id },

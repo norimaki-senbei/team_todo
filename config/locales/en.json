@@ -2,7 +2,7 @@
 	"AppTitle": "ExpressMVC",
 	"views": {
 		"Profile": "Profile",
-		"Massage": {
+		"Message": {
 			"AssignedTasks": "Assigned tasks",
 			"BelongTeam": "Team to belong"
 		}
@@ -14,4 +14,7 @@
 				"1": "Admin"
 			}
 		}
-	}
+	},
+	"AssignedTasks": "AssignedTasks",
+	"BelongTeam": "BelongTeam"
+}
